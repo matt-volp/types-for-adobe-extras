@@ -271,7 +271,7 @@ interface QETrackItem {
   readonly frameBlend: number
   readonly mediaType: number
   readonly multicamEnabled: number
-  readonly name: number
+  readonly name: string
   readonly numComponents: number
   readonly reverse: number
   readonly reversed: number
@@ -312,43 +312,16 @@ interface QETrackItem {
   getClipPanComponent(): object
   getComponentAt(index: number): QEComponent
   getProjectItem(): object
-
-  /**
-   * Move a clip on the timeline
-   *
-   * @param frames The number of frames to move the clip
-   * @param copyClip If true, the clip will be copied to the new location. If false, the clip will be moved to the new location. [Default: false]
-   * @example item.copy('10', false)
-   */
   move(
-    frames: string,
-    copyClip: boolean,
+    p0: string,
+    p1: boolean,
     p2: boolean,
     p3: boolean,
     p4: boolean,
     p5: boolean,
     p6: boolean,
   ): boolean
-  /**
-   * Move a clip up or down tracks
-   *
-   * @param videoTrackIndexMoveCount The number of video tracks to move the clip
-   * @param audioTrackIndexMoveCount The number of audio tracks to move the clip
-   * @param moveFrames The number of frames to shift the clip forward or backward. [Default: 0]
-   * @param copyClip If true, the clip will be copied to the new location. If false, the clip will be moved to the new location. [Default: false]
-   *
-   * @example item.moveToTrack(1, 0, '', true); // move video up one track
-   * @example item.moveToTrack(0, 1, '', true); // move audio down one track
-   * @example item.moveToTrack(-1, 0, '', true); // move video down one track
-   * @example item.moveToTrack(0, -1, '', true); // move audio up one track
-   *
-   */
-  moveToTrack(
-    videoTrackIndexMoveCount: number,
-    audioTrackIndexMoveCount: number,
-    moveFrames: string,
-    copyClip?: boolean, // optional: default `false`
-  ): boolean
+  moveToTrack(p0: number, p1: number, p2: string, p3: boolean): boolean
   remove(p0: boolean, p1: boolean): boolean
   /**
    * Appears to be broken
@@ -522,8 +495,8 @@ interface Sequence {
     subAudioIndex?: number,
   ): boolean
   removeTracks(): any
-  removeVideoTrack(): any
-  removeAudioTrack(): any
+  removeVideoTrack(index: number): any
+  removeAudioTrack(index: number): any
   removeEmptyVideoTracks(): any
   removeEmptyAudioTracks(): any
   exportToAME(): any
@@ -534,7 +507,7 @@ interface Sequence {
    * Retrieve the file
    */
   getExportFileExtension(): any
-  razor(timecode: string, p1: boolean, p2: boolean): any
+  razor(): any
   setCTI(): any
   setInPoint(): any
   setOutPoint(): any
@@ -554,7 +527,7 @@ interface Sequence {
   getEmptyBarTimes(): any
   setUseMaxBitDepth(): any
   setUseMaxRenderQuality(): any
-  setVideoDisplayFormat(displayFormat: number): boolean
+  setVideoDisplayFormat(): any
   setAudioDisplayFormat(): any
   setPreviewFrameSize(): any
   setPreviewPresetPath(): any
@@ -612,7 +585,7 @@ interface Track {
   overwrite(): any
   addAudioEffect(): any
   getComponentAt(): any
-  razor(): any
+  razor(timecode: string): any
   setLock(): any
   isLocked(): boolean
   setSyncLock(): any
